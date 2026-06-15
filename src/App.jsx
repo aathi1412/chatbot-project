@@ -12,9 +12,6 @@ function App(){
     useEffect(() => {
         Chatbot.addResponses({
             'hi': 'hii, welcome back',
-            'suck my dick': 'Sure , remove your pants',
-            'is it pink': 'yes , it is pink can you taste it',
-            'wtf': 'yeah yeah , fuck me hard oh yes ahhhhhhhhhhh',
             'kiss me': function(){
                 return (
                    <span>yeah sure 
