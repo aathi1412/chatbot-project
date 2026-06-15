@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { ChatInput } from './components/ChatInput';
 import { ChatMessages } from './components/ChatMessages';
 import { Chatbot } from 'supersimpledev';
-import kiss from './assets/kiss.png';
 import './App.css' 
 
    
@@ -12,13 +11,6 @@ function App(){
     useEffect(() => {
         Chatbot.addResponses({
             'hi': 'hii, welcome back',
-            'kiss me': function(){
-                return (
-                   <span>yeah sure 
-                    <img className='kiss' src={kiss} />
-                    </span> 
-                )
-            },
             'goodbye': 'Goodbye. Have a great day!',
             'give me a unique id': function(){
                 return `Sure! Here's a unique ID: ${crypto.randomUUID()} `;
