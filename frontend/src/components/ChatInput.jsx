@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Chatbot } from 'supersimpledev';
+import axios from "axios";
 import LoadingGif from '../assets/gifs/Loading-gif.gif';
 import dayjs from 'dayjs';
 import './ChatInput.css';
@@ -35,17 +35,23 @@ export function ChatInput({ chatMessages, setChatMessages }){
             setChatMessages([
                 ...newChatMessage,
                 {
-                    message: <img className="loading-gif" src={LoadingGif} /> ,
+                    message: <img src={LoadingGif} className="loading-gif" alt="Loading"/> ,
                     sender: "robot",
                     id: crypto.randomUUID()
                 }
             ]);
 
-            const response = await Chatbot.getResponseAsync(inputText);
+            const response = await axios.post("http://localhost:8080/api/v1/chat/ask-ai", {
+                prompt: inputText
+            });
+            const data = await response.data;
+
+            const message = data.choices[0].message.content;
+
             setChatMessages([
                 ...newChatMessage,
                 {
-                    message: response ,
+                    message: message,
                     sender: "robot",
                     id: crypto.randomUUID(),
                     time: dayjs().valueOf()
