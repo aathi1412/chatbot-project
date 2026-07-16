@@ -41,17 +41,23 @@ export function ChatInput({ chatMessages, setChatMessages }){
                 }
             ]);
 
-            const response = await axios.post("http://localhost:8080/api/v1/chat/ask-ai", {
+            const response = await axios.post("http://localhost:8080/api/v1/chat", {
                 prompt: inputText
             });
             const data = await response.data;
 
-            const message = data.choices[0].message.content;
+            console.log(data);
+            let value;
+            if (data.type === "TEXT"){
+                value = data.data;
+            }else{
+                value = `<img src={data.data} alt="Generated AI Image"/>`
+            }
 
             setChatMessages([
                 ...newChatMessage,
                 {
-                    message: message,
+                    message: <img src={data.data} alt="Generated AI Image" className="chat-image"/>,
                     sender: "robot",
                     id: crypto.randomUUID(),
                     time: dayjs().valueOf()
