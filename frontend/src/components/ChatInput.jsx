@@ -47,7 +47,6 @@ export function ChatInput({ chatMessages, setChatMessages }){
                 prompt: inputText
             });
             const data = await response.data;
-            console.log(response.data);
 
             setChatMessages([
                 ...newChatMessage,
