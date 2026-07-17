@@ -2,6 +2,7 @@ package com.aathi.chatbotbackend.service;
 
 import com.aathi.chatbotbackend.dto.response.ChatResponse;
 import com.aathi.chatbotbackend.enums.ToolType;
+import com.aathi.chatbotbackend.exceptions.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class RequestRouterService {
         return switch (tool) {
             case TEXT -> textGenerationService.generateChatResponse(prompt);
             case IMAGE ->  imageGenerationService.generateImage(prompt);
+            case ERROR -> throw new BadRequestException("Bad Request");
         };
     }
 }
