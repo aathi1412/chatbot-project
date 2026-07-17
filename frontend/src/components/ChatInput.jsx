@@ -21,7 +21,8 @@ export function ChatInput({ chatMessages, setChatMessages }){
             const newChatMessage = [
                 ...chatMessages,
                 {
-                    message: inputText ,
+                    message: inputText,
+                    type: "TEXT",
                     sender: "user",
                     id: crypto.randomUUID(),
                     time: dayjs().valueOf()
@@ -35,7 +36,8 @@ export function ChatInput({ chatMessages, setChatMessages }){
             setChatMessages([
                 ...newChatMessage,
                 {
-                    message: <img src={LoadingGif} className="loading-gif" alt="Loading"/> ,
+                    message: LoadingGif,
+                    type: "LOADING",
                     sender: "robot",
                     id: crypto.randomUUID()
                 }
@@ -45,19 +47,13 @@ export function ChatInput({ chatMessages, setChatMessages }){
                 prompt: inputText
             });
             const data = await response.data;
-
-            console.log(data);
-            let value;
-            if (data.type === "TEXT"){
-                value = data.data;
-            }else{
-                value = `<img src={data.data} alt="Generated AI Image"/>`
-            }
+            console.log(response.data);
 
             setChatMessages([
                 ...newChatMessage,
                 {
-                    message: <img src={data.data} alt="Generated AI Image" className="chat-image"/>,
+                    message: data.data,
+                    type: data.type,
                     sender: "robot",
                     id: crypto.randomUUID(),
                     time: dayjs().valueOf()
