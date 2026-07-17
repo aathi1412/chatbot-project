@@ -16,6 +16,7 @@ export function ChatMessages({ chatMessages }){
                         sender= {chatMessage.sender}
                         key={chatMessage.id}
                         time={chatMessage.time}
+                        type={chatMessage.type}
                     />
                 );
             })}
