@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 import './ChatMessage.css';
 
 
-export function ChatMessage({message, sender, time}){
-    
+export function ChatMessage({message, sender, time, type}){
+
         return (
             <div 
                 className={sender==='user'
@@ -22,21 +22,20 @@ export function ChatMessage({message, sender, time}){
                 )}
 
                 <div className="chat-message-text">
-                    {message}
+                    {type === "TEXT" && message}
+                    {type === "ERROR" && message}
 
-                    {time && (
-                        <div className='chat-message-time'>
-                            {dayjs(time).format('HH: mma')}
-                        </div>
+                    {type === "IMAGE" && (
+                        <img src={message} alt="Generated AI" className="chat-message-image" />
                     )}
-                </div>
 
-                <div className="chat-message-image">
-                    {message}
+                    {type === "LOADING" && (
+                        <img src={message} className="loading-gif" alt="Loading" />
+                    )}
 
                     {time && (
-                        <div className='chat-message-time'>
-                            {dayjs(time).format('HH: mma')}
+                        <div className="chat-message-time">
+                            {dayjs(time).format("HH:mm A")}
                         </div>
                     )}
                 </div>
